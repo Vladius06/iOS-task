@@ -15,6 +15,8 @@
 		1AA3C8B6263AB26C0041430A /* QuoteDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA3C8B5263AB26C0041430A /* QuoteDetailsViewController.swift */; };
 		1AA3C8BA263AB2980041430A /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA3C8B9263AB2980041430A /* Quote.swift */; };
 		1AC78CBF263C6686004D4F8F /* Market.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC78CBE263C6686004D4F8F /* Market.swift */; };
+		F58EAD472A419742006B67F3 /* QuoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58EAD462A419742006B67F3 /* QuoteTableViewCell.swift */; };
+		F58EAD492A419CB2006B67F3 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58EAD482A419CB2006B67F3 /* Assets.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		1AA3C8B5263AB26C0041430A /* QuoteDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteDetailsViewController.swift; sourceTree = "<group>"; };
 		1AA3C8B9263AB2980041430A /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
 		1AC78CBE263C6686004D4F8F /* Market.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Market.swift; sourceTree = "<group>"; };
+		F58EAD462A419742006B67F3 /* QuoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteTableViewCell.swift; sourceTree = "<group>"; };
+		F58EAD482A419CB2006B67F3 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +69,7 @@
 				1AA3C8AB263AA2D10041430A /* View */,
 				1AA3C896263AA2030041430A /* AppDelegate.swift */,
 				1AA3C89F263AA2040041430A /* Assets.xcassets */,
+				F58EAD482A419CB2006B67F3 /* Assets.swift */,
 				1AA3C8A1263AA2040041430A /* LaunchScreen.storyboard */,
 				1AA3C8A4263AA2040041430A /* Info.plist */,
 			);
@@ -75,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				1AA3C89A263AA2030041430A /* QuotesListViewController.swift */,
+				F58EAD462A419742006B67F3 /* QuoteTableViewCell.swift */,
 				1AA3C8B5263AB26C0041430A /* QuoteDetailsViewController.swift */,
 			);
 			path = View;
@@ -168,8 +174,10 @@
 			files = (
 				1AA3C8B6263AB26C0041430A /* QuoteDetailsViewController.swift in Sources */,
 				1AA3C89B263AA2030041430A /* QuotesListViewController.swift in Sources */,
+				F58EAD492A419CB2006B67F3 /* Assets.swift in Sources */,
 				1AA3C8B2263AA8360041430A /* DataManager.swift in Sources */,
 				1AA3C8BA263AB2980041430A /* Quote.swift in Sources */,
+				F58EAD472A419742006B67F3 /* QuoteTableViewCell.swift in Sources */,
 				1AA3C897263AA2030041430A /* AppDelegate.swift in Sources */,
 				1AC78CBF263C6686004D4F8F /* Market.swift in Sources */,
 			);

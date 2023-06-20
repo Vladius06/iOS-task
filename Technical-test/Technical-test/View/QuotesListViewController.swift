@@ -7,9 +7,76 @@
 
 import UIKit
 
-class QuotesListViewController: UIViewController {
+class QuotesListViewController: UITableViewController {
     
     private let dataManager:DataManager = DataManager()
     private var market:Market? = nil
     
+    private var quotes: [Quote] = []
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupTableView()
+        loadQuotes()
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        quotes.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: QuoteTableViewCell.reuseId, for: indexPath)
+        if let quoteCell = cell as? QuoteTableViewCell {
+            quoteCell.quote = quotes[indexPath.row]
+        }
+        return cell
+    }
+}
+
+private extension QuotesListViewController {
+    func setupTableView() {
+        tableView.register(QuoteTableViewCell.self, forCellReuseIdentifier: QuoteTableViewCell.reuseId)
+        let refresControl = UIRefreshControl()
+        refresControl.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
+        self.refreshControl = refresControl
+    }
+    
+    func showLoading(_ isLoading: Bool) {
+        refreshControl?.isEnabled = !isLoading
+        if isLoading {
+            refreshControl?.beginRefreshing()
+        } else {
+            refreshControl?.endRefreshing()
+        }
+    }
+    
+    @objc func pullToRefresh() {
+        loadQuotes()
+    }
+    
+    func loadQuotes() {
+        showLoading(true)
+        dataManager.fetchQuotes { [weak self] result in
+            DispatchQueue.main.async {
+                self?.handle(result)
+            }
+        }
+    }
+    
+    func handle(_ quotesResult: Result<[Quote], Error>) {
+        showLoading(false)
+        switch quotesResult {
+        case let .success(quotes):
+            self.quotes = quotes
+            tableView.reloadData()
+        case let .failure(error):
+            handle(error)
+        }
+    }
+    
+    func handle(_ error: Error) {
+        let message = error.localizedDescription
+        let alert = UIAlertController(title: "Sorry", message: message, preferredStyle: .alert)
+        present(alert, animated: true)
+    }
 }
