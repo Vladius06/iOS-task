@@ -31,6 +31,11 @@ class QuotesListViewController: UITableViewController {
         }
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        showDetais(of: quotes[indexPath.row])
+    }
 }
 
 private extension QuotesListViewController {
@@ -77,6 +82,13 @@ private extension QuotesListViewController {
     func handle(_ error: Error) {
         let message = error.localizedDescription
         let alert = UIAlertController(title: "Sorry", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default)
+        alert.addAction(okAction)
         present(alert, animated: true)
+    }
+    
+    func showDetais(of quote: Quote) {
+        let details = QuoteDetailsViewController(quote: quote)
+        navigationController?.pushViewController(details, animated: true)
     }
 }
