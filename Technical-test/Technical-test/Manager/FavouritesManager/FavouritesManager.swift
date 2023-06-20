@@ -9,7 +9,7 @@ import Foundation
 
 enum FavouritesManager {
     private static let defaultsKey = "com.tech-test.favouritesSymbols"
-    private static let storage = UserDefaults.standard
+    private static var storage: PersistantStorage = UserDefaults.standard
     
     static let updateNotificationName = Notification.Name("com.tech-test.updateFavouritesNotification")
     
@@ -28,5 +28,9 @@ enum FavouritesManager {
         }
         storage.set(Array(favourites), forKey: defaultsKey)
         NotificationCenter.default.post(name: updateNotificationName, object: nil)
+    }
+    
+    static func useStorage(_ storage: PersistantStorage) {
+        FavouritesManager.storage = storage
     }
 }

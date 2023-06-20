@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "4CBBB8EA-699E-4D71-9659-A2A5A7889AE9",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Technical-test.xcodeproj",
+        "identifier" : "F58EAD672A41D482006B67F3",
+        "name" : "Technical-testTests"
+      }
+    }
+  ],
+  "version" : 1
+}
