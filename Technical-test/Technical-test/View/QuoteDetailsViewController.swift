@@ -11,6 +11,8 @@ class QuoteDetailsViewController: UIViewController {
     
     private var quote:Quote? = nil
     
+    private let favouritesManager = FavouritesManager.self
+    
     let symbolLabel = UILabel()
     let nameLabel = UILabel()
     let lastLabel = UILabel()
@@ -18,8 +20,13 @@ class QuoteDetailsViewController: UIViewController {
     let readableLastChangePercentLabel = UILabel()
     let favoriteButton = UIButton()
     
-    
-    
+    private var isQuoteFavourite: Bool {
+        if let symbol = quote?.symbol {
+            return favouritesManager.favouriteSymbols?.contains(symbol) ?? false
+        } else {
+            return false
+        }
+    }
     
     init(quote:Quote) {
         super.init(nibName: nil, bundle: nil)
@@ -65,7 +72,7 @@ class QuoteDetailsViewController: UIViewController {
         readableLastChangePercentLabel.layer.borderColor = UIColor.black.cgColor
         readableLastChangePercentLabel.font = .systemFont(ofSize: 30)
         
-        favoriteButton.setTitle("Add to favorites", for: .normal)
+        updateFavouriteButtonTitle()
         favoriteButton.layer.cornerRadius = 6
         favoriteButton.layer.masksToBounds = true
         favoriteButton.layer.borderWidth = 3
@@ -82,6 +89,9 @@ class QuoteDetailsViewController: UIViewController {
         view.addSubview(favoriteButton)
     }
     
+    private func updateFavouriteButtonTitle() {
+        favoriteButton.setTitle(isQuoteFavourite ? "Remove from favorites" : "Add to favorites", for: .normal)
+    }
     
     func setupAutolayout() {
         symbolLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -121,14 +131,17 @@ class QuoteDetailsViewController: UIViewController {
                         
             favoriteButton.topAnchor.constraint(equalTo: readableLastChangePercentLabel.bottomAnchor, constant: 30),
             favoriteButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            favoriteButton.widthAnchor.constraint(equalToConstant: 150),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 200),
             favoriteButton.heightAnchor.constraint(equalToConstant: 44),
             
         ])
     }
-    
-    
+        
     @objc func didPressFavoriteButton(_ sender:UIButton!) {
-        // TODO
+        guard let symbol = quote?.symbol else {
+            return
+        }
+        favouritesManager.toggleFavourite(symbol)
+        updateFavouriteButtonTitle()
     }
 }

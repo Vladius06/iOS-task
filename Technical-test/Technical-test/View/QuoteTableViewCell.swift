@@ -15,12 +15,18 @@ final class QuoteTableViewCell: UITableViewCell {
         }
     }
     
+    var isFavourite = false {
+        didSet {
+            favouriteImageView.image = isFavourite ?
+                .init(named: Assets.favorite.rawValue) :
+                .init(named: Assets.notFavourite.rawValue)
+        }
+    }
+    
     private let nameLabel = UILabel()
     private let lastLabel = UILabel()
     private let readableLastChangePercentLabel = UILabel()
-    private let favouriteImageView = UIImageView(
-        image: UIImage(named: Assets.notFavourite.rawValue),
-        highlightedImage: UIImage(named: Assets.favorite.rawValue))
+    private let favouriteImageView = UIImageView(image: UIImage(named: Assets.notFavourite.rawValue))
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

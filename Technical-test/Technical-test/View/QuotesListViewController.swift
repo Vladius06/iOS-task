@@ -11,13 +11,22 @@ class QuotesListViewController: UITableViewController {
     
     private let dataManager:DataManager = DataManager()
     private var market:Market? = nil
+    private let favouritesManager = FavouritesManager.self
     
     private var quotes: [Quote] = []
+    private var favouriteSymbols: Set<String> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        updateFavourites()
+        subscribeToFavouritesChange()
         loadQuotes()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -27,7 +36,14 @@ class QuotesListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: QuoteTableViewCell.reuseId, for: indexPath)
         if let quoteCell = cell as? QuoteTableViewCell {
-            quoteCell.quote = quotes[indexPath.row]
+            let quote = quotes[indexPath.row]
+            quoteCell.quote = quote
+            
+            if let symbol = quote.symbol {
+                quoteCell.isFavourite = favouriteSymbols.contains(symbol)
+            } else {
+                quoteCell.isFavourite = false
+            }
         }
         return cell
     }
@@ -66,6 +82,20 @@ private extension QuotesListViewController {
                 self?.handle(result)
             }
         }
+    }
+    
+    func subscribeToFavouritesChange() {
+        NotificationCenter.default.addObserver(
+            forName: favouritesManager.updateNotificationName,
+            object: nil,
+            queue: .main) { [weak self] _ in
+                self?.updateFavourites()
+                self?.tableView.reloadData()
+            }
+    }
+    
+    func updateFavourites() {
+        favouriteSymbols = Set(favouritesManager.favouriteSymbols ?? [])
     }
     
     func handle(_ quotesResult: Result<[Quote], Error>) {
