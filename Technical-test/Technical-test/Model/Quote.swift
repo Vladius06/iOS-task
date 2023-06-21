@@ -13,6 +13,14 @@ struct Quote {
     var currency:String?
     var readableLastChangePercent:String?
     var last:String?
-    var variationColor:String?
-    var myMarket:Market?
+    var variationColor:VariationColor?
 }
+
+extension Quote {
+    enum VariationColor: String, Codable {
+        case red
+        case green
+    }
+}
+
+extension Quote: Decodable {}
