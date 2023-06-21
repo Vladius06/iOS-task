@@ -79,7 +79,6 @@ private extension QuoteTableViewCell {
         }.joined(separator: " ")
         readableLastChangePercentLabel.text = quote?.readableLastChangePercent
         readableLastChangePercentLabel.textColor = quote?.readableLastChangeColor
-        //TODO: favorite
     }
 }
 

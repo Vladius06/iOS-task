@@ -14,7 +14,6 @@ struct Quote {
     var readableLastChangePercent:String?
     var last:String?
     var variationColor:VariationColor?
-    var myMarket:Market?
 }
 
 extension Quote {
@@ -24,13 +23,4 @@ extension Quote {
     }
 }
 
-extension Quote: Decodable {
-    enum CodingKeys: String, CodingKey {
-        case symbol
-        case name
-        case currency
-        case readableLastChangePercent
-        case last
-        case variationColor
-    }
-}
+extension Quote: Decodable {}

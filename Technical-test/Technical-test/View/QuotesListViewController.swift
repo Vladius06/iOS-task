@@ -10,7 +10,6 @@ import UIKit
 class QuotesListViewController: UITableViewController {
     
     private let dataManager:DataManager = DataManager()
-    private var market:Market? = nil
     private let favouritesManager = FavouritesManager.self
     
     private var quotes: [Quote] = []
